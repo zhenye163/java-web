@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="timePrinterJob" class="com.netopstec.spring_quartz.TimePrinterJob"/>
+    <bean id="printTimeJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+        <property name="targetObject" ref="timePrinterJob"/>
+        <property name="targetMethod" value="printTime"/>
+    </bean>
+    <bean id="printTimeTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail" ref="printTimeJobDetail"/>
+        <property name="cronExpression" value="/3 * * * * ?"/>
+    </bean>
+
+    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="printTimeTrigger"/>
+            </list>
+        </property>
+    </bean>
+</beans>
