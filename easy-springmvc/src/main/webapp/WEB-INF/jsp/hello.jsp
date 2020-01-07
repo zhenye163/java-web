@@ -5,6 +5,9 @@
     <title>Title</title>
 </head>
 <body>
- ${message}
+<p>姓名：${user.name}</p>
+<p>花名：${user.nick}</p>
+<p>年龄：${user.age}</p>
+<p>爱好：${user.hobby}</p>
 </body>
 </html>
